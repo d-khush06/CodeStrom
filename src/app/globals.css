@@ -1,26 +1,363 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:where(.dark, .dark *));
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+:root {
+  /* Light theme defaults (system can override via media query below) */
+  --app-bg: #eef3ff;
+  --app-fg: #0f172a;
+  --app-muted: rgba(15, 23, 42, 0.74);
+  --app-muted-2: rgba(15, 23, 42, 0.56);
+
+  --app-card: rgba(255, 255, 255, 0.86);
+  --app-card-hover: rgba(255, 255, 255, 0.95);
+  --app-border: rgba(15, 23, 42, 0.12);
+
+  --app-grid: rgba(30, 41, 59, 0.08);
+  --app-blob-1: rgba(37, 99, 235, 0.18);
+  --app-blob-2: rgba(6, 182, 212, 0.14);
+
+  --app-primary: #1d4ed8;
+  --app-primary-hover: #2563eb;
+
+  --app-shadow-1: rgba(15, 23, 42, 0.12);
+  --app-shadow-2: rgba(15, 23, 42, 0.22);
+
+  /* Values used by Clerk appearance (kept as CSS vars so theme can switch) */
+  --clerk-input-bg: rgba(255, 255, 255, 0.95);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --app-bg: #05070f;
+    --app-fg: #ffffff;
+    --app-muted: rgba(255, 255, 255, 0.72);
+    --app-muted-2: rgba(255, 255, 255, 0.50);
+
+    --app-card: rgba(255, 255, 255, 0.06);
+    --app-card-hover: rgba(255, 255, 255, 0.09);
+    --app-border: rgba(255, 255, 255, 0.12);
+
+    --app-grid: rgba(255, 255, 255, 0.06);
+    --app-blob-1: rgba(59, 130, 246, 0.22);
+    --app-blob-2: rgba(236, 72, 153, 0.16);
+
+    --app-shadow-1: rgba(0, 0, 0, 0.28);
+    --app-shadow-2: rgba(0, 0, 0, 0.60);
+
+    --clerk-input-bg: rgba(2, 6, 23, 0.55);
   }
 }
 
+html[data-theme="light"] {
+  --app-bg: #eef3ff;
+  --app-fg: #0f172a;
+  --app-muted: rgba(15, 23, 42, 0.74);
+  --app-muted-2: rgba(15, 23, 42, 0.56);
+
+  --app-card: rgba(255, 255, 255, 0.86);
+  --app-card-hover: rgba(255, 255, 255, 0.95);
+  --app-border: rgba(15, 23, 42, 0.12);
+
+  --app-grid: rgba(30, 41, 59, 0.08);
+  --app-blob-1: rgba(37, 99, 235, 0.18);
+  --app-blob-2: rgba(6, 182, 212, 0.14);
+
+  --app-shadow-1: rgba(15, 23, 42, 0.12);
+  --app-shadow-2: rgba(15, 23, 42, 0.22);
+
+  --clerk-input-bg: rgba(255, 255, 255, 0.95);
+}
+
+html[data-theme="dark"] {
+  --app-bg: #05070f;
+  --app-fg: #ffffff;
+  --app-muted: rgba(255, 255, 255, 0.72);
+  --app-muted-2: rgba(255, 255, 255, 0.50);
+
+  --app-card: rgba(255, 255, 255, 0.06);
+  --app-card-hover: rgba(255, 255, 255, 0.09);
+  --app-border: rgba(255, 255, 255, 0.12);
+
+  --app-grid: rgba(255, 255, 255, 0.06);
+  --app-blob-1: rgba(59, 130, 246, 0.22);
+  --app-blob-2: rgba(236, 72, 153, 0.16);
+
+  --app-shadow-1: rgba(0, 0, 0, 0.28);
+  --app-shadow-2: rgba(0, 0, 0, 0.60);
+
+  --clerk-input-bg: rgba(2, 6, 23, 0.55);
+}
+
+@theme inline {
+  /* Keep these for any Tailwind v4 tokens that rely on them */
+  --color-background: var(--app-bg);
+  --color-foreground: var(--app-fg);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--app-bg);
+  color: var(--app-fg);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: fade-in 840ms ease forwards;
+}
+
+.fade-in.delay-1 {
+  animation-delay: 120ms;
+}
+
+.fade-in.delay-2 {
+  animation-delay: 220ms;
+}
+
+.fade-in.delay-3 {
+  animation-delay: 340ms;
+}
+
+.fade-in.delay-4 {
+  animation-delay: 460ms;
+}
+
+.slice-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.slice-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.15em;
+  height: 0.28em;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.0), rgba(56, 189, 248, 0.5), rgba(59, 130, 246, 0.65), rgba(236, 72, 153, 0.4), rgba(56, 189, 248, 0.0));
+  transform: translateX(-35%);
+  animation: slice-move 1800ms ease-in-out infinite;
+  filter: blur(0.5px);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slice-move {
+  0% {
+    transform: translateX(-35%);
+  }
+  50% {
+    transform: translateX(35%);
+  }
+  100% {
+    transform: translateX(-35%);
+  }
+}
+
+/* Clerk: hide the popover footer badge in the UserButton menu */
+.cl-userButtonPopoverFooter {
+  display: none !important;
+}
+
+/* Clerk: best-effort hide of dev/branding footers inside Clerk UI */
+.cl-footer,
+.cl-footerPages,
+.cl-badge,
+.cl-poweredByClerk,
+.cl-branding,
+.cl-developmentMode,
+.cl-userProfileFooter,
+.cl-userProfileFooterAction,
+.cl-userProfileFooterActionText,
+.cl-userProfileFooterActionLink,
+.cl-securedByClerk,
+.cl-userProfileFooterText,
+.cl-userProfileFooterLinks,
+.cl-userProfileFooterLink,
+.cl-userProfileFooterBadge,
+.cl-userProfileFooterBrand,
+.cl-userProfileFooterDev,
+.cl-userProfileFooterDebug,
+.cl-internal-1t9u6k2,
+.cl-internal-1eek6lq,
+.cl-internal-1d3w1dh,
+.cl-internal-1q53x4s,
+.cl-internal-1k4xw8v,
+.cl-internal-1x3f9m0 {
+  display: none !important;
+}
+
+/* Clerk user profile modal styling to match the app glass UI */
+.cl-modalBackdrop {
+  background: rgba(2, 6, 23, 0.65) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+.cl-modalContent,
+.cl-card {
+  background: var(--app-card) !important;
+  color: var(--app-fg) !important;
+  border: 1px solid var(--app-border) !important;
+  box-shadow: 0 30px 90px var(--app-shadow-2) !important;
+  backdrop-filter: blur(24px) !important;
+  border-radius: 24px !important;
+  background-image: none !important;
+}
+
+.cl-modalCloseButton {
+  background: var(--app-card) !important;
+  border: 1px solid var(--app-border) !important;
+  color: var(--app-fg) !important;
+  border-radius: 14px !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+.cl-modalCloseButton:hover {
+  background: var(--app-card-hover) !important;
+}
+
+.cl-userButtonPopoverCard,
+.cl-userPreview,
+.cl-userButtonPopoverActionButton,
+.cl-userButtonPopoverActionButtonText {
+  background: var(--app-card) !important;
+  color: var(--app-fg) !important;
+  border-color: var(--app-border) !important;
+}
+
+.cl-userButtonPopoverCard {
+  background: var(--app-card) !important;
+  border: 1px solid var(--app-border) !important;
+  box-shadow: 0 20px 60px var(--app-shadow-2) !important;
+  backdrop-filter: blur(20px) !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  background-image: none !important;
+}
+
+.cl-userButtonPopoverActionButton:hover {
+  background: var(--app-card-hover) !important;
+}
+
+/* Ensure Clerk popover/layout surfaces stay glassy (no nested opaque panels) */
+.cl-userButtonPopoverMain,
+.cl-userButtonPopoverActions,
+.cl-userButtonPopoverActionButtonIcon,
+.cl-userButtonPopoverActionButtonText {
+  background: transparent !important;
+}
+
+.cl-userProfileRoot,
+.cl-userProfile,
+.cl-userProfilePage,
+.cl-userProfileBody,
+.cl-userProfileContent {
+  background: transparent !important;
+}
+
+.cl-navbar {
+  background: transparent !important;
+  border-right: 1px solid var(--app-border) !important;
+  border-radius: 24px 0 0 24px !important;
+  background-image: none !important;
+}
+
+.cl-navbar::before,
+.cl-navbar::after,
+.cl-card::before,
+.cl-card::after,
+.cl-modalContent::before,
+.cl-modalContent::after {
+  background-image: none !important;
+  content: none !important;
+}
+
+.cl-navbarButton {
+  color: var(--app-muted) !important;
+}
+
+.cl-navbarButton.cl-active,
+.cl-navbarButton:hover {
+  color: var(--app-fg) !important;
+  background: var(--app-card-hover) !important;
+}
+
+.cl-profileSectionTitle,
+.cl-profileSectionPrimaryButton,
+.cl-profileSectionSecondaryButton,
+.cl-profileSectionContent {
+  color: var(--app-fg) !important;
+}
+
+.cl-profileSectionPrimaryButton {
+  background: var(--app-primary) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 999px !important;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 18px 50px rgba(37, 99, 235, 0.25) !important;
+}
+
+.cl-profileSectionPrimaryButton:hover {
+  background: var(--app-primary-hover) !important;
+}
+
+.cl-profileSectionItem,
+.cl-profileSectionItemTitle,
+.cl-profileSectionItemDescription,
+.cl-profileSectionItemText {
+  color: var(--app-muted) !important;
+}
+
+.cl-profileSectionItem {
+  border-color: var(--app-border) !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+}
+
+.cl-profileSectionItemHeader,
+.cl-profileSectionItemContent {
+  border-radius: 20px !important;
+}
+
+/* Smooth theme switch animations (enabled briefly by ThemeToggle) */
+html.theme-transition,
+html.theme-transition * {
+  transition-property: background-color, color, border-color, outline-color, box-shadow, fill, stroke, opacity;
+  transition-duration: 520ms;
+  transition-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.theme-wipe {
+  clip-path: circle(0% at 50% 50%);
+  transition-duration: 650ms;
+  transition-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.theme-wipe-active {
+  clip-path: circle(150% at 50% 50%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.theme-transition,
+  html.theme-transition * {
+    transition: none !important;
+  }
+
+  .theme-wipe,
+  .theme-wipe-active {
+    clip-path: none;
+  }
 }
