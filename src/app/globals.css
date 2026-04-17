@@ -4,7 +4,7 @@
 
 :root {
   /* Light theme defaults (system can override via media query below) */
-  --app-bg: #eef3ff;
+  --app-bg: #edf4ff;
   --app-fg: #0f172a;
   --app-muted: rgba(15, 23, 42, 0.74);
   --app-muted-2: rgba(15, 23, 42, 0.56);
@@ -14,11 +14,11 @@
   --app-border: rgba(15, 23, 42, 0.12);
 
   --app-grid: rgba(30, 41, 59, 0.08);
-  --app-blob-1: rgba(37, 99, 235, 0.18);
-  --app-blob-2: rgba(6, 182, 212, 0.14);
+  --app-blob-1: rgba(14, 165, 233, 0.18);
+  --app-blob-2: rgba(16, 185, 129, 0.14);
 
-  --app-primary: #1d4ed8;
-  --app-primary-hover: #2563eb;
+  --app-primary: #0891b2;
+  --app-primary-hover: #0ea5e9;
 
   --app-shadow-1: rgba(15, 23, 42, 0.12);
   --app-shadow-2: rgba(15, 23, 42, 0.22);
@@ -39,8 +39,8 @@
     --app-border: rgba(255, 255, 255, 0.12);
 
     --app-grid: rgba(255, 255, 255, 0.06);
-    --app-blob-1: rgba(59, 130, 246, 0.22);
-    --app-blob-2: rgba(236, 72, 153, 0.16);
+    --app-blob-1: rgba(34, 211, 238, 0.22);
+    --app-blob-2: rgba(16, 185, 129, 0.16);
 
     --app-shadow-1: rgba(0, 0, 0, 0.28);
     --app-shadow-2: rgba(0, 0, 0, 0.60);
@@ -50,7 +50,7 @@
 }
 
 html[data-theme="light"] {
-  --app-bg: #eef3ff;
+  --app-bg: #edf4ff;
   --app-fg: #0f172a;
   --app-muted: rgba(15, 23, 42, 0.74);
   --app-muted-2: rgba(15, 23, 42, 0.56);
@@ -60,8 +60,8 @@ html[data-theme="light"] {
   --app-border: rgba(15, 23, 42, 0.12);
 
   --app-grid: rgba(30, 41, 59, 0.08);
-  --app-blob-1: rgba(37, 99, 235, 0.18);
-  --app-blob-2: rgba(6, 182, 212, 0.14);
+  --app-blob-1: rgba(14, 165, 233, 0.18);
+  --app-blob-2: rgba(16, 185, 129, 0.14);
 
   --app-shadow-1: rgba(15, 23, 42, 0.12);
   --app-shadow-2: rgba(15, 23, 42, 0.22);
@@ -80,8 +80,8 @@ html[data-theme="dark"] {
   --app-border: rgba(255, 255, 255, 0.12);
 
   --app-grid: rgba(255, 255, 255, 0.06);
-  --app-blob-1: rgba(59, 130, 246, 0.22);
-  --app-blob-2: rgba(236, 72, 153, 0.16);
+  --app-blob-1: rgba(34, 211, 238, 0.22);
+  --app-blob-2: rgba(16, 185, 129, 0.16);
 
   --app-shadow-1: rgba(0, 0, 0, 0.28);
   --app-shadow-2: rgba(0, 0, 0, 0.60);
@@ -93,14 +93,14 @@ html[data-theme="dark"] {
   /* Keep these for any Tailwind v4 tokens that rely on them */
   --color-background: var(--app-bg);
   --color-foreground: var(--app-fg);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-space);
+  --font-mono: var(--font-plex-mono);
 }
 
 body {
   background: var(--app-bg);
   color: var(--app-fg);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), "Segoe UI", system-ui, sans-serif;
 }
 
 .fade-in {
@@ -138,7 +138,7 @@ body {
   bottom: -0.15em;
   height: 0.28em;
   border-radius: 999px;
-  background: linear-gradient(90deg, rgba(56, 189, 248, 0.0), rgba(56, 189, 248, 0.5), rgba(59, 130, 246, 0.65), rgba(236, 72, 153, 0.4), rgba(56, 189, 248, 0.0));
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.0), rgba(34, 211, 238, 0.5), rgba(14, 165, 233, 0.65), rgba(16, 185, 129, 0.4), rgba(56, 189, 248, 0.0));
   transform: translateX(-35%);
   animation: slice-move 1800ms ease-in-out infinite;
   filter: blur(0.5px);

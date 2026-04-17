@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { ProfileMenu } from "@/components/ProfileMenu";
+import { AnalysisDashboard } from "./_components/AnalysisDashboard";
 
 export default function Home() {
   // These are your "Keyframes" for the staggered card animation
@@ -26,30 +27,37 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 selection:bg-blue-500/30 font-sans pb-24 dark:bg-[#0A0A0B] dark:text-white">
-      
-      {/* Top Navigation Bar - Fades in instantly */}
-      <motion.nav 
+    <div className="relative min-h-screen overflow-hidden text-[var(--app-fg)]">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-[-10%] top-[-20%] h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(34,211,238,0.35),_transparent_70%)] blur-2xl" />
+        <div className="absolute right-[-15%] top-[10%] h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(16,185,129,0.25),_transparent_65%)] blur-2xl" />
+        <div className="absolute bottom-[-25%] left-[25%] h-[480px] w-[480px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(56,189,248,0.22),_transparent_70%)] blur-2xl" />
+      </div>
+
+      <motion.nav
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="flex items-center justify-between px-8 py-6 max-w-7xl mx-auto w-full"
+        className="relative z-10 flex items-center justify-between px-6 py-6 max-w-6xl mx-auto w-full"
       >
-        <div className="font-bold text-xl tracking-widest">CODESTORM</div>
+        <div className="font-bold text-lg tracking-[0.4em] text-white">CODESTORM</div>
         <div className="flex items-center gap-6">
           <ThemeToggle />
-          
+
           <Show when="signed-in">
-            <Link href="/dashboard" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors dark:text-slate-300 dark:hover:text-white">
+            <Link
+              href="/dashboard"
+              className="text-sm font-medium text-white/70 hover:text-white transition-colors"
+            >
               Dashboard
             </Link>
             <ProfileMenu />
           </Show>
-          
+
           <Show when="signed-out">
             <Link
               href="/sign-in"
-              className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors dark:text-slate-300 dark:hover:text-white"
+              className="text-sm font-medium text-white/70 hover:text-white transition-colors"
             >
               Sign in
             </Link>
@@ -57,72 +65,72 @@ export default function Home() {
         </div>
       </motion.nav>
 
-      <main className="flex flex-col items-center justify-center mt-20 px-4 text-center max-w-5xl mx-auto w-full">
-        
-        {/* Hero Section - Slides up smoothly */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
+      <main className="relative z-10 mx-auto flex w-full max-w-6xl flex-col px-6 pb-20">
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="flex flex-col items-center"
+          className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr]"
         >
-          <div className="bg-white/80 border border-slate-200 rounded-full px-5 py-2 mb-8 text-xs font-medium text-slate-600 backdrop-blur-md flex items-center dark:bg-white/5 dark:border-white/10 dark:text-slate-300">
-            Secure authentication <span className="mx-3 text-slate-600">•</span> Glassmorphism UI
+          <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-8 backdrop-blur-xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-[11px] uppercase tracking-[0.3em] text-white/70">
+              Video intelligence · correlation · insights
+            </div>
+            <h1 className="mt-6 text-5xl font-extrabold tracking-tight text-white sm:text-6xl">
+              Video transcript analysis
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-400 to-emerald-300">
+                built for real-world signals
+              </span>
+            </h1>
+            <p className="mt-5 text-lg text-white/70">
+              Upload a video, extract metadata, align transcript segments, and surface
+              timeline insights in minutes. The dashboard below is wired end-to-end for
+              hackathon demos.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Link
+                href="#analysis-dashboard"
+                className="rounded-full bg-cyan-400 px-6 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-slate-900 shadow-[0_0_20px_rgba(34,211,238,0.4)]"
+              >
+                Start demo
+              </Link>
+              <button className="rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm uppercase tracking-[0.25em] text-white/70 hover:border-white/40">
+                View pipeline
+              </button>
+            </div>
           </div>
 
-          <h1 className="text-6xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
-            The ultra-modern starter <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500">
-              for premium dark apps
-            </span>
-          </h1>
-
-          <p className="text-lg text-slate-600 max-w-2xl mb-10 leading-relaxed dark:text-slate-400">
-            Dark glass surfaces, neon edges, and crisp typography. Ship authentication, dashboards, 
-            and protected routes with a cyber-polished aesthetic.
-          </p>
-
-          <Show when="signed-in">
-            <Link href="/dashboard" className="bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:shadow-[0_0_30px_rgba(37,99,235,0.6)]">
-              Go to dashboard
-            </Link>
-          </Show>
-          <Show when="signed-out">
-            <Link
-              href="/sign-up"
-              className="bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:shadow-[0_0_30px_rgba(37,99,235,0.6)]"
-            >
-              Get Started
-            </Link>
-          </Show>
-        </motion.div>
-
-        {/* 3-Column Feature Cards - Staggered Pop-in */}
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          animate="show"
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-24 w-full max-w-5xl text-left"
-        >
-          {/* Card 1 */}
-          <motion.div variants={itemVariants} className="group bg-white border border-slate-200 rounded-2xl p-8 backdrop-blur-xl hover:bg-slate-50 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(37,99,235,0.2)] dark:bg-white/[0.02] dark:border-white/10 dark:hover:bg-white/[0.06] dark:hover:shadow-[0_10px_40px_-10px_rgba(37,99,235,0.3)]">
-            <h3 className="font-semibold text-lg mb-2 text-slate-900 group-hover:text-cyan-600 transition-colors duration-300 dark:text-white dark:group-hover:text-cyan-400">Frosted surfaces</h3>
-            <p className="text-slate-600 text-sm leading-relaxed dark:text-slate-400">Ultra-soft glass layers with subtle neon glow edges.</p>
+          <motion.div variants={containerVariants} initial="hidden" animate="show" className="grid gap-4">
+            {[
+              {
+                title: "Metadata + scene extraction",
+                text: "Capture duration, bitrate, and scene boundaries with deterministic alignment.",
+              },
+              {
+                title: "Behavioral signal plotting",
+                text: "Track speaking pace, pauses, and sentiment arcs across the timeline.",
+              },
+              {
+                title: "Actionable insights",
+                text: "Summarize real-world implications with evidence-backed reasoning.",
+              },
+            ].map((card, index) => (
+              <motion.div
+                key={card.title}
+                variants={itemVariants}
+                className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl"
+              >
+                <div className="text-xs uppercase tracking-[0.24em] text-white/50">
+                  Module {index + 1}
+                </div>
+                <h3 className="mt-3 text-lg font-semibold text-white">{card.title}</h3>
+                <p className="mt-2 text-sm text-white/60">{card.text}</p>
+              </motion.div>
+            ))}
           </motion.div>
-          
-          {/* Card 2 */}
-          <motion.div variants={itemVariants} className="group bg-white border border-slate-200 rounded-2xl p-8 backdrop-blur-xl hover:bg-slate-50 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(37,99,235,0.2)] dark:bg-white/[0.02] dark:border-white/10 dark:hover:bg-white/[0.06] dark:hover:shadow-[0_10px_40px_-10px_rgba(37,99,235,0.3)]">
-            <h3 className="font-semibold text-lg mb-2 text-slate-900 group-hover:text-blue-600 transition-colors duration-300 dark:text-white dark:group-hover:text-blue-400">Protected routes</h3>
-            <p className="text-slate-600 text-sm leading-relaxed dark:text-slate-400">Middleware + auth-ready pages with modern UX patterns.</p>
-          </motion.div>
-          
-          {/* Card 3 */}
-          <motion.div variants={itemVariants} className="group bg-white border border-slate-200 rounded-2xl p-8 backdrop-blur-xl hover:bg-slate-50 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_10px_40px_-10px_rgba(37,99,235,0.2)] dark:bg-white/[0.02] dark:border-white/10 dark:hover:bg-white/[0.06] dark:hover:shadow-[0_10px_40px_-10px_rgba(37,99,235,0.3)]">
-            <h3 className="font-semibold text-lg mb-2 text-slate-900 group-hover:text-purple-600 transition-colors duration-300 dark:text-white dark:group-hover:text-purple-400">Premium polish</h3>
-            <p className="text-slate-600 text-sm leading-relaxed dark:text-slate-400">Bold typography, high contrast, and cyber accents.</p>
-          </motion.div>
-        </motion.div>
+        </motion.section>
 
+        <AnalysisDashboard />
       </main>
     </div>
   );

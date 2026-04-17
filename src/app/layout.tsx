@@ -1,13 +1,21 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
 
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ClerkCleanup } from "./_components/ClerkCleanup";
 
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space",
+});
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-plex-mono",
+});
 
 export const metadata: Metadata = {
   title: "CodeStorm Solution",
@@ -19,8 +27,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <body
         className={
-          inter.className +
-          " min-h-screen bg-slate-50 text-slate-900 selection:bg-blue-500/30 " +
+          spaceGrotesk.className +
+          " " +
+          spaceGrotesk.variable +
+          " " +
+          plexMono.variable +
+          " min-h-screen bg-slate-50 text-slate-900 selection:bg-cyan-400/30 " +
           "dark:bg-[#0A0A0B] dark:text-white"
         }
       >
@@ -28,7 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ClerkProvider
             appearance={{
               variables: {
-                colorPrimary: "#2563eb",
+                colorPrimary: "#22d3ee",
               },
               elements: {
                 userButtonPopoverFooter: "hidden",
@@ -50,8 +62,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 headerSubtitle: "text-slate-500 dark:text-slate-400",
 
                 formButtonPrimary:
-                  "rounded-full bg-blue-600 hover:bg-blue-500 text-white " +
-                  "shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:shadow-[0_0_30px_rgba(37,99,235,0.6)]",
+                  "rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-900 " +
+                  "shadow-[0_0_20px_rgba(34,211,238,0.4)] hover:shadow-[0_0_30px_rgba(34,211,238,0.6)]",
               },
             }}
           >
